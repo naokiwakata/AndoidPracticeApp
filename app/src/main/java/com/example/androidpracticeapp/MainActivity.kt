@@ -1,72 +1,28 @@
 package com.example.androidpracticeapp
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.compose.setContent
-import androidx.compose.material.Text
-import com.example.androidpracticeapp.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.collectAsState
+import androidx.core.view.WindowCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidpracticeapp.compose.RootScreen
+import com.example.androidpracticeapp.viewModel.MainScreenViewModel
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         // Androidのウィンドウのデコレーションがシステムウィンドウに合わせて自動的に調整されないように設定する
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-
-
         setContent {
-            Text(text = "Compose Debut!!")
+            val mainScreenViewModel = viewModel(
+                initializer = {
+                    MainScreenViewModel()
+                }
+            )
+            RootScreen(
+                mainScreenUiState = mainScreenViewModel.uiStateFlow.collectAsState().value
+            )
         }
-        // activity_main.xml に binding して描画する
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
-
-        // jetpack compose の ナビゲーターを使用している？
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        // クリックイベントの追加
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "スナックバーが出せるよ〜", Snackbar.LENGTH_SHORT)
-                .setAnchorView(R.id.fab)
-                .setAction("Action", null).show()
-        }
-
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
     }
 }
