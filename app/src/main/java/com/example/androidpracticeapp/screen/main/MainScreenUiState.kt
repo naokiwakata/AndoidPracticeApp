@@ -1,4 +1,4 @@
-package com.example.androidpracticeapp.uiState
+package com.example.androidpracticeapp.screen.main
 
 import androidx.compose.runtime.Immutable
 

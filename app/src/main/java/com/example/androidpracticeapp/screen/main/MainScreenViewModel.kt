@@ -1,8 +1,7 @@
-package com.example.androidpracticeapp.viewModel
+package com.example.androidpracticeapp.screen.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.androidpracticeapp.uiState.MainScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update

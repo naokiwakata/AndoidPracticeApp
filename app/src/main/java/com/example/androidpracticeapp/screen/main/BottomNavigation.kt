@@ -1,4 +1,4 @@
-package com.example.androidpracticeapp.compose
+package com.example.androidpracticeapp.screen.main
 
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text

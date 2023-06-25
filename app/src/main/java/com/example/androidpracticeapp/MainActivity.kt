@@ -6,9 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.collectAsState
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androidpracticeapp.compose.AppTheme
-import com.example.androidpracticeapp.compose.RootScreen
-import com.example.androidpracticeapp.viewModel.MainScreenViewModel
+import com.example.androidpracticeapp.screen.compose_screen.ComposeScreenViewModel
+import com.example.androidpracticeapp.screen.main.AppTheme
+import com.example.androidpracticeapp.screen.main.RootScreen
+import com.example.androidpracticeapp.screen.main.MainScreenViewModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,9 +20,13 @@ class MainActivity : AppCompatActivity() {
             val mainScreenViewModel = viewModel(initializer = {
                 MainScreenViewModel()
             })
+            val composeScreenViewModel = viewModel(initializer = {
+                ComposeScreenViewModel()
+            })
             AppTheme {
                 RootScreen(
-                    mainScreenUiState = mainScreenViewModel.uiStateFlow.collectAsState().value
+                    mainScreenUiState = mainScreenViewModel.uiStateFlow.collectAsState().value,
+                    composeScreenUiState = composeScreenViewModel.uiStateFlow.collectAsState().value,
                 )
             }
         }
