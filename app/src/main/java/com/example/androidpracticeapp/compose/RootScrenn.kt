@@ -15,39 +15,5 @@ import com.example.androidpracticeapp.uiState.MainScreenUiState
 fun RootScreen(
     mainScreenUiState: MainScreenUiState,
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .systemBarsPadding(),
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            when (mainScreenUiState.selectedType) {
-                MainScreenUiState.BottomTabType.Compose -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "This is Compose Screen!!")
-                    }
-                }
-
-                MainScreenUiState.BottomTabType.View -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "This is View Screen!!")
-                    }
-                }
-            }
-        }
-        MainActivityBottomNavigation(
-            onClickCompose = { mainScreenUiState.listener.onClickCompose() },
-            onClickView = { mainScreenUiState.listener.onClickView() },
-        )
-    }
+    BottomNavigationScreen(mainScreenUiState = mainScreenUiState)
 }
