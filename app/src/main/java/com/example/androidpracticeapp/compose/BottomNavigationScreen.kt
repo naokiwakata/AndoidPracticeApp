@@ -58,6 +58,10 @@ private fun TabNavHost(modifier: Modifier, mainScreenUiState: MainScreenUiState)
 
             MainScreenUiState.BottomTabType.View -> {
                 navController.navigate(ScreenName.ViewTab.navigationName) {
+                    popUpTo(navController.graph.findStartDestination().id) {
+                        saveState = true
+                    }
+                    restoreState = true
                     launchSingleTop = true
                 }
             }
@@ -70,7 +74,7 @@ private fun TabNavHost(modifier: Modifier, mainScreenUiState: MainScreenUiState)
         startDestination = ScreenName.ComposeTab.navigationName,
     ) {
         composable(ScreenName.ComposeTab.navigationName) {
-            Text(text = "This is Compose Screen!!")
+            ComposeScreen(modifier = Modifier.fillMaxSize())
         }
         composable(ScreenName.ViewTab.navigationName) {
             Text(text = "This is View Screen!!")

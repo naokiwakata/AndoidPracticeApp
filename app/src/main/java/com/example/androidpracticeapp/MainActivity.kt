@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.collectAsState
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androidpracticeapp.compose.AppTheme
 import com.example.androidpracticeapp.compose.RootScreen
 import com.example.androidpracticeapp.viewModel.MainScreenViewModel
 
@@ -15,14 +16,15 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContent {
-            val mainScreenViewModel = viewModel(
-                initializer = {
-                    MainScreenViewModel()
-                }
-            )
-            RootScreen(
-                mainScreenUiState = mainScreenViewModel.uiStateFlow.collectAsState().value
-            )
+            val mainScreenViewModel = viewModel(initializer = {
+                MainScreenViewModel()
+            })
+            AppTheme {
+                RootScreen(
+                    mainScreenUiState = mainScreenViewModel.uiStateFlow.collectAsState().value
+                )
+            }
         }
     }
 }
+
